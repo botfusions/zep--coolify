@@ -1,28 +1,11 @@
 version: '3.8'
 
 services:
-  falkordb:
-    image: falkordb/falkordb:latest
-    expose:
-      - "6379"
-    volumes:
-      - falkor_data:/data
-    restart: unless-stopped
-
   graph:
     image: zepai/graphiti:latest
     expose:
       - "8000"
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - GRAPH_DB_TYPE=falkordb
-      - FALKORDB_HOST=falkordb
-      - FALKORDB_PORT=6379
-      - FALKORDB_DB=default_db
       - PORT=8000
     restart: unless-stopped
-    depends_on:
-      - falkordb
-
-volumes:
-  falkor_data:
